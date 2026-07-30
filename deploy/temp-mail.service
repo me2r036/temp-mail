@@ -11,7 +11,7 @@ Group=ubuntu
 WorkingDirectory=/home/ubuntu/temp-mail/web
 EnvironmentFile=/home/ubuntu/temp-mail/web/.env
 Environment=NODE_ENV=production
-ExecStart=/usr/bin/env bun server.ts
+ExecStart=/home/ubuntu/.nvm/versions/node/v24.18.0/bin/bun server.ts
 Restart=on-failure
 RestartSec=5s
 
