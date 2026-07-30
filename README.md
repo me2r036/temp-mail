@@ -141,7 +141,7 @@ Before you begin, ensure you have following:
 
 To check your Cloudflare Workers, D1 databases, and domain information directly from your terminal, you can use the `cf-info` script.
 
-1.  **Configure API Credentials**: Add your Cloudflare Account ID and an API Token with appropriate permissions (e.g., `Zone:Read`, `Worker Scripts:Read`, `D1:Read`, `Zone:Email:Read`) to your `.dev.vars` file.
+1.  **Configure API Credentials**: Add your Cloudflare Account ID and an API Token with appropriate permissions (e.g., `Zone:Read`, `Worker Scripts:Read`, `D1:Read`, `Workers KV Storage:Read`, `Zone:Email:Read`) to your `.dev.vars` file.
 
     Example `.dev.vars` additions:
     ```

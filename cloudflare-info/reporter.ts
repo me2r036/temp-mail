@@ -98,6 +98,8 @@ export async function report() {
             }
         }
     } catch (error) {
-        console.error("Could not fetch KV namespace information.");
+        console.error(
+            "Could not fetch KV namespace information. Ensure your API token has 'Account:Workers KV Storage:Read' permission.",
+        );
     }
 }

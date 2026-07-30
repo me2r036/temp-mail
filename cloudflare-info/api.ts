@@ -1,5 +1,3 @@
-import { readFileSync } from 'node:fs';
-import { join } from 'node:path';
 import { loadEnvVarsFromDevVars } from './env';
 
 export interface CloudflareApiResponse<T> {
@@ -19,6 +17,10 @@ export interface D1Database {
     created_at: string;
 }
 
+export interface KVNamespace {
+    id: string;
+    title: string;
+}
 
 export interface Zone {
     id: string;
@@ -45,22 +47,17 @@ export async function getCloudflareApiData<T>(path: string, useAccountPath: bool
     const baseUrl = useAccountPath ? `https://api.cloudflare.com/client/v4/accounts/${accountId}` : `https://api.cloudflare.com/client/v4`;
     const url = `${baseUrl}${path}`;
 
-    try {
-        const response = await fetch(url, {
-            headers: {
-                'Authorization': `Bearer ${apiToken}`,
-                'Content-Type': 'application/json',
-            },
-        });
+    const response = await fetch(url, {
+        headers: {
+            'Authorization': `Bearer ${apiToken}`,
+            'Content-Type': 'application/json',
+        },
+    });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(`Cloudflare API error: ${response.status} ${response.statusText} - ${JSON.stringify(errorData)}`);
-        }
-
-        return await response.json() as CloudflareApiResponse<T>;
-    } catch (error) {
-        console.error(`Failed to fetch from Cloudflare API for path ${path}:`, error);
-        throw error;
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Cloudflare API error: ${response.status} ${response.statusText} - ${JSON.stringify(errorData)}`);
     }
+
+    return await response.json() as CloudflareApiResponse<T>;
 }
