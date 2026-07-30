@@ -15,25 +15,5 @@ ExecStart=/usr/bin/env bun server.ts
 Restart=on-failure
 RestartSec=5s
 
-NoNewPrivileges=true
-PrivateTmp=true
-PrivateDevices=true
-ProtectHome=tmpfs
-BindReadOnlyPaths=/home/ubuntu/temp-mail/web /home/ubuntu/.bun/bin
-ProtectSystem=full
-ProtectClock=true
-ProtectHostname=true
-ProtectKernelLogs=true
-ProtectKernelTunables=true
-ProtectKernelModules=true
-ProtectControlGroups=true
-CapabilityBoundingSet=
-RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
-RestrictNamespaces=true
-RestrictRealtime=true
-RestrictSUIDSGID=true
-LockPersonality=true
-UMask=0077
-
 [Install]
 WantedBy=multi-user.target
