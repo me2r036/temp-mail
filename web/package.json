@@ -1,0 +1,27 @@
+{
+	"name": "drift-inbox-web",
+	"private": true,
+	"version": "0.1.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc -b && vite build",
+		"serve": "bun run server.ts",
+		"test": "bun test",
+		"typecheck": "tsc -b --pretty false",
+		"preview": "vite preview"
+	},
+	"dependencies": {
+		"lucide-react": "^0.468.0",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
+		"react-router": "^7.1.1"
+	},
+	"devDependencies": {
+		"@types/react": "^19.0.0",
+		"@types/react-dom": "^19.0.0",
+		"@vitejs/plugin-react": "^4.3.4",
+		"typescript": "^5.7.2",
+		"vite": "^6.0.5"
+	}
+}
