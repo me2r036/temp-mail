@@ -29,7 +29,7 @@ const MIME_TYPES: Record<string, string> = {
 
 const SECURITY_HEADERS = {
 	"Content-Security-Policy":
-		"default-src 'self'; connect-src 'self' https:; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'",
+		"default-src 'self'; script-src 'self'; connect-src 'self' https:; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'",
 	"Cross-Origin-Opener-Policy": "same-origin",
 	"Referrer-Policy": "no-referrer",
 	"X-Content-Type-Options": "nosniff",

@@ -46,6 +46,13 @@ describe("static server authentication", () => {
 		expect(index.status).toBe(200);
 		expect(index.headers.get("Content-Type")).toBe("text/html; charset=utf-8");
 		expect(index.headers.get("Cache-Control")).toBe("no-cache");
+		expect(index.headers.get("Content-Security-Policy")).toContain("script-src 'self'");
+		expect(index.headers.get("Content-Security-Policy")).toContain(
+			"style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+		);
+		expect(index.headers.get("Content-Security-Policy")).toContain(
+			"font-src 'self' https://fonts.gstatic.com",
+		);
 		expect(await index.text()).toContain("Temp Mail");
 
 		const asset = await request("/assets/app-AbCd1234.js", {
