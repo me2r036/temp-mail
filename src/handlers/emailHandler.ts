@@ -99,7 +99,7 @@ export async function handleEmail(
 		const emailData = emailSchema.parse({
 			id: emailId,
 			from_address: message.from,
-			to_address: message.to,
+			to_address: (message.to || "").trim().toLowerCase(),
 			subject: email.subject || null,
 			received_at: now(),
 			html_content: htmlContent,

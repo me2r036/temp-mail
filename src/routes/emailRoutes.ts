@@ -28,12 +28,13 @@ const emailRoutes = new OpenAPIHono<{ Bindings: CloudflareBindings }>();
 emailRoutes.openapi(getEmailsRoute, async (c) => {
 	const { emailAddress } = c.req.valid("param");
 	const { limit, offset } = c.req.valid("query");
+	const normalized = (emailAddress || "").trim().toLowerCase();
 
-	const domainValidation = validateEmailDomain(emailAddress);
+	const domainValidation = validateEmailDomain(normalized);
 	if (!domainValidation.valid) return c.json(domainValidation.error, 404);
 
 	const dbService = createDatabaseService(c.env.D1);
-	const { results, error } = await dbService.getEmailsByRecipient(emailAddress, limit, offset);
+	const { results, error } = await dbService.getEmailsByRecipient(normalized, limit, offset);
 
 	if (error) return c.json(ERR(error.message, "D1Error"), 500);
 	return c.json(OK(results));
@@ -42,12 +43,13 @@ emailRoutes.openapi(getEmailsRoute, async (c) => {
 // @ts-ignore - OpenAPI route handler type mismatch with error response status codes
 emailRoutes.openapi(getEmailsCountRoute, async (c) => {
 	const { emailAddress } = c.req.valid("param");
+	const normalized = (emailAddress || "").trim().toLowerCase();
 
-	const domainValidation = validateEmailDomain(emailAddress);
+	const domainValidation = validateEmailDomain(normalized);
 	if (!domainValidation.valid) return c.json(domainValidation.error, 404);
 
 	const dbService = createDatabaseService(c.env.D1);
-	const { count, error } = await dbService.countEmailsByRecipient(emailAddress);
+	const { count, error } = await dbService.countEmailsByRecipient(normalized);
 
 	if (error) return c.json(ERR(error.message, "D1Error"), 500);
 	return c.json(OK({ count }));
@@ -56,12 +58,13 @@ emailRoutes.openapi(getEmailsCountRoute, async (c) => {
 // @ts-ignore - OpenAPI route handler type mismatch with error response status codes
 emailRoutes.openapi(deleteEmailsRoute, async (c) => {
 	const { emailAddress } = c.req.valid("param");
+	const normalized = (emailAddress || "").trim().toLowerCase();
 
-	const domainValidation = validateEmailDomain(emailAddress);
+	const domainValidation = validateEmailDomain(normalized);
 	if (!domainValidation.valid) return c.json(domainValidation.error, 404);
 
 	const dbService = createDatabaseService(c.env.D1);
-	const { meta, error } = await dbService.deleteEmailsByRecipient(emailAddress);
+	const { meta, error } = await dbService.deleteEmailsByRecipient(normalized);
 
 	if (error) return c.json(ERR(error.message, "D1Error"), 500);
 	if (meta && meta.changes === 0)

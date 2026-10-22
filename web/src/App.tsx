@@ -136,7 +136,7 @@ export function InboxRoute() {
 
 	const validAddress = emailPattern.test(address);
 	const domain = address.split("@")[1] || "";
-	const unsupportedDomain = domains !== null && !domains.includes(domain);
+	const unsupportedDomain = domains !== null && !domains.some((base) => domain.toLowerCase().trim() === base.toLowerCase().trim() || domain.toLowerCase().trim().endsWith("." + base.toLowerCase().trim()));
 
 	useEffect(() => {
 		const controller = new AbortController();
